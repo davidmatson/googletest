@@ -161,7 +161,8 @@ TEST_F(StreamingListenerTest, OnTestPartResult) {
 
   // Meta characters in the failure message should be properly escaped.
   EXPECT_EQ(
-      "event=TestPartResult&file=foo.cc&line=42&message=failed%3D%0A%26%25\n",
+      "event=TestPartResult&passed=0&skipped=0&file=foo.cc&line=42"
+      "&message=failed%3D%0A%26%25\n",
       *output());
 }
 

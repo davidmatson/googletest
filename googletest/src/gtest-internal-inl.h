@@ -1199,9 +1199,12 @@ class StreamingListener : public EmptyTestEventListener {
   void OnTestPartResult(const TestPartResult& test_part_result) override {
     const char* file_name = test_part_result.file_name();
     if (file_name == nullptr) file_name = "";
-    SendLn("event=TestPartResult&file=" + UrlEncode(file_name) +
-           "&line=" + StreamableToString(test_part_result.line_number()) +
-           "&message=" + UrlEncode(test_part_result.message()));
+    SendLn("event=TestPartResult&passed=" +
+           FormatBool(test_part_result.passed()) + "&skipped=" +
+           FormatBool(test_part_result.skipped()) + "&file=" +
+           UrlEncode(file_name) + "&line=" +
+           StreamableToString(test_part_result.line_number()) + "&message=" +
+           UrlEncode(test_part_result.message()));
   }
 
  private:
