@@ -1196,6 +1196,10 @@ class StreamingListener : public EmptyTestEventListener {
            StreamableToString((test_info.result())->elapsed_time()) + "ms");
   }
 
+  void OnTestDisabled(const TestInfo& test_info) override {
+    SendLn(std::string("event=TestDisabled&name=") + test_info.name());
+  }
+
   void OnTestPartResult(const TestPartResult& test_part_result) override {
     const char* file_name = test_part_result.file_name();
     if (file_name == nullptr) file_name = "";

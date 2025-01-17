@@ -154,6 +154,12 @@ TEST_F(StreamingListenerTest, OnTestEnd) {
   EXPECT_EQ("event=TestEnd&passed=1&elapsed_time=0ms\n", *output());
 }
 
+TEST_F(StreamingListenerTest, OnTestDisabled) {
+  *output() = "";
+  streamer_.OnTestDisabled(test_info_obj_);
+  EXPECT_EQ("event=TestDisabled&name=Bar\n", *output());
+}
+
 TEST_F(StreamingListenerTest, OnTestPartResult) {
   *output() = "";
   streamer_.OnTestPartResult(TestPartResult(TestPartResult::kFatalFailure,
