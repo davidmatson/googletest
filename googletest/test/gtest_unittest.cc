@@ -145,7 +145,7 @@ TEST_F(StreamingListenerTest, OnTestSuiteEnd) {
 TEST_F(StreamingListenerTest, OnTestStart) {
   *output() = "";
   streamer_.OnTestStart(test_info_obj_);
-  EXPECT_EQ("event=TestStart&name=Bar\n", *output());
+  EXPECT_EQ("event=TestStart&name=Bar&value_param=\n", *output());
 }
 
 TEST_F(StreamingListenerTest, OnTestEnd) {
@@ -157,7 +157,7 @@ TEST_F(StreamingListenerTest, OnTestEnd) {
 TEST_F(StreamingListenerTest, OnTestDisabled) {
   *output() = "";
   streamer_.OnTestDisabled(test_info_obj_);
-  EXPECT_EQ("event=TestDisabled&name=Bar\n", *output());
+  EXPECT_EQ("event=TestDisabled&name=Bar&value_param=\n", *output());
 }
 
 TEST_F(StreamingListenerTest, OnTestPartResult) {

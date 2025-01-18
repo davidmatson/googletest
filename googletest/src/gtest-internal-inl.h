@@ -1187,7 +1187,10 @@ class StreamingListener : public EmptyTestEventListener {
   }
 
   void OnTestStart(const TestInfo& test_info) override {
-    SendLn(std::string("event=TestStart&name=") + test_info.name());
+    const char* value_param = test_info.value_param();
+    if (value_param == nullptr) value_param = "";
+    SendLn(std::string("event=TestStart&name=") + test_info.name() +
+           "&value_param=" + UrlEncode(value_param));
   }
 
   void OnTestEnd(const TestInfo& test_info) override {
@@ -1197,7 +1200,10 @@ class StreamingListener : public EmptyTestEventListener {
   }
 
   void OnTestDisabled(const TestInfo& test_info) override {
-    SendLn(std::string("event=TestDisabled&name=") + test_info.name());
+    const char* value_param = test_info.value_param();
+    if (value_param == nullptr) value_param = "";
+    SendLn(std::string("event=TestDisabled&name=") + test_info.name() +
+           "&value_param=" + UrlEncode(value_param));
   }
 
   void OnTestPartResult(const TestPartResult& test_part_result) override {
