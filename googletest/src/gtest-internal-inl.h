@@ -1175,7 +1175,10 @@ class StreamingListener : public EmptyTestEventListener {
   // Note that "event=TestCaseStart" is a wire format and has to remain
   // "case" for compatibility
   void OnTestSuiteStart(const TestSuite& test_suite) override {
-    SendLn(std::string("event=TestCaseStart&name=") + test_suite.name());
+    const char* type_param = test_suite.type_param();
+    if (type_param == nullptr) type_param = "";
+    SendLn(std::string("event=TestCaseStart&name=") + test_suite.name() +
+           "&type_param=" + UrlEncode(type_param));
   }
 
   // Note that "event=TestCaseEnd" is a wire format and has to remain

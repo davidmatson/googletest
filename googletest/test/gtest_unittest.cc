@@ -132,8 +132,12 @@ TEST_F(StreamingListenerTest, OnTestIterationEnd) {
 
 TEST_F(StreamingListenerTest, OnTestSuiteStart) {
   *output() = "";
-  streamer_.OnTestSuiteStart(TestSuite("FooTest", "Bar", nullptr, nullptr));
-  EXPECT_EQ("event=TestCaseStart&name=FooTest\n", *output());
+  streamer_.OnTestSuiteStart(TestSuite("FooTest", "Bar=\n&%", nullptr, nullptr));
+
+  // Meta characters in the type parameter should be properly escaped.
+  EXPECT_EQ(
+      "event=TestCaseStart&name=FooTest&type_param=Bar%3D%0A%26%25\n",
+      *output());
 }
 
 TEST_F(StreamingListenerTest, OnTestSuiteEnd) {
